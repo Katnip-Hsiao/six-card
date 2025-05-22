@@ -54,6 +54,6 @@ function saveImage() {
     link.download = "六边形青年战力卡.png";
     link.href = canvas.toDataURL();
     link.click();
-    alert("已生成图片，请点击右上角『更多』按钮后选择『分享』或『保存到相册』~");
+    alert("已生成图片，请点击右上角『更多』按钮后选择『分享』~");
   });
 }
