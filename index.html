@@ -45,6 +45,14 @@
       }
       window.location.href = "result.html";
     }
-  </script>
+  
+    function updateValue(i) {
+      const slider = document.getElementById('score' + i);
+      const display = document.getElementById('value' + i);
+      if (slider && display) {
+        display.textContent = slider.value;
+      }
+    }
+    </script>
 </body>
 </html>
