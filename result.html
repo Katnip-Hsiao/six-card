@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>六边形战力图 - 展示</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card" id="cardArea">
+    <img src="logo.png" class="logo" alt="logo" />
+    <h2 class="result-title"><span id="displayName"></span> 的六边形战力图</h2>
+    <canvas id="radarChart" width="400" height="400"></canvas>
+    <div id="titleArea" class="title-area"></div>
+    <div id="quoteArea" class="quote-area"></div>
+  </div>
+  <button onclick="saveImage()">保存战力卡为图片</button>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

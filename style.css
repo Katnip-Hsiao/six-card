@@ -1,0 +1,64 @@
+
+body {
+  font-family: "Helvetica Neue", sans-serif;
+  background: #f2f4f8;
+  text-align: center;
+  margin: 0;
+  padding: 40px;
+}
+
+.input-page {
+  max-width: 400px;
+  margin: 100px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+input {
+  padding: 12px;
+  font-size: 18px;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+.logo {
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.result-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.title-area {
+  font-size: 20px;
+  color: #0055aa;
+  margin-top: 20px;
+}
+
+.quote-area {
+  color: #666;
+  font-style: italic;
+  margin-top: 10px;
+}

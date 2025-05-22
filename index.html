@@ -1,142 +1,22 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>六边形青年战力图</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <style>
-    body {
-      font-family: "Microsoft YaHei", sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    .slider-label {
-      margin-top: 12px;
-    }
-    input[type="range"] {
-      width: 200px;
-    }
-    #resultCard {
-      background: white;
-      padding: 20px;
-      margin-top: 20px;
-      display: inline-block;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .title {
-      font-weight: bold;
-      font-size: 18px;
-      margin: 8px 0;
-    }
-    .quote {
-      font-style: italic;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-    button {
-      margin-top: 10px;
-      padding: 8px 20px;
-      font-size: 14px;
-    }
-    .score-text {
-      margin-left: 8px;
-      font-weight: bold;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>六边形战力图 - 昵称输入</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>六边形青年战力图</h1>
-  <div id="sliders">
-    <div class="slider-label">有理想：<input type="range" min="0" max="100" value="60" id="score1" oninput="updateChart()"> <span class="score-text" id="val1">60</span></div>
-    <div class="slider-label">敢担当：<input type="range" min="0" max="100" value="60" id="score2" oninput="updateChart()"> <span class="score-text" id="val2">60</span></div>
-    <div class="slider-label">守纪律：<input type="range" min="0" max="100" value="60" id="score3" oninput="updateChart()"> <span class="score-text" id="val3">60</span></div>
-    <div class="slider-label">肯奋斗：<input type="range" min="0" max="100" value="60" id="score4" oninput="updateChart()"> <span class="score-text" id="val4">60</span></div>
-    <div class="slider-label">善协作：<input type="range" min="0" max="100" value="60" id="score5" oninput="updateChart()"> <span class="score-text" id="val5">60</span></div>
-    <div class="slider-label">勇创新：<input type="range" min="0" max="100" value="60" id="score6" oninput="updateChart()"> <span class="score-text" id="val6">60</span></div>
+  <div class="input-page">
+    <h1>请输入昵称</h1>
+    <input id="username" type="text" placeholder="如：言夕宝宝">
+    <button onclick="goToResult()">生成战力图</button>
   </div>
-  <button onclick="generate()">生成战力图</button>
-
-  <div id="resultCard" style="display:none;">
-    <div class="title" id="title">你的称号</div>
-    <canvas id="chart" width="300" height="300"></canvas>
-    <div class="quote" id="quote">语录</div>
-  </div>
-  <button id="downloadBtn" onclick="saveImage()" style="display:none;">保存战力卡为图片</button>
-
   <script>
-    const ctx = document.getElementById("chart").getContext("2d");
-    let chart = new Chart(ctx, {
-      type: "radar",
-      data: {
-        labels: ["有理想", "敢担当", "守纪律", "肯奋斗", "善协作", "勇创新"],
-        datasets: [{
-          label: "战力值",
-          data: [60, 60, 60, 60, 60, 60],
-          backgroundColor: "rgba(54, 162, 235, 0.2)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: false,
-        scale: {
-          ticks: {
-            beginAtZero: true,
-            max: 100
-          }
-        }
-      }
-    });
-
-    function updateChart() {
-      for (let i = 1; i <= 6; i++) {
-        const val = document.getElementById("score" + i).value;
-        document.getElementById("val" + i).textContent = val;
-        chart.data.datasets[0].data[i - 1] = val;
-      }
-      chart.update();
-    }
-
-    function generate() {
-      const values = [];
-      for (let i = 1; i <= 6; i++) {
-        values.push(parseInt(document.getElementById("score" + i).value));
-      }
-      const labels = ["信仰持盾者", "使命突击手", "规矩守门员", "燃力实践家", "协同发动机", "未来突破者"];
-      const quotes = [
-        "你不是在喊口号，而是在每一个孤独的时刻也不放下信仰的火光。",
-        "你总是第一个出发，也是最后一个离场。",
-        "你是团队的定盘星，越关键越稳重。",
-        "没人比你更知道坚持意味着什么。",
-        "你懂配合，也懂牺牲。",
-        "你的创新不是胡思乱想，而是敢想也敢做。"
-      ];
-      const maxIndex = values.indexOf(Math.max(...values));
-      document.getElementById("title").textContent = "🏅 称号：" + labels[maxIndex];
-      document.getElementById("quote").textContent = quotes[maxIndex];
-      document.getElementById("resultCard").style.display = "block";
-      document.getElementById("downloadBtn").style.display = "inline-block";
-      updateChart();
-    }
-
-    function saveImage() {
-      html2canvas(document.querySelector("#resultCard")).then(canvas => {
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png");
-        link.download = "战力卡.png";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        alert("战力卡已生成，请长按保存或点击右上角下载");
-      });
+    function goToResult() {
+      const name = document.getElementById("username").value || "未命名战士";
+      localStorage.setItem("sixCardName", name);
+      window.location.href = "result.html";
     }
   </script>
 </body>
