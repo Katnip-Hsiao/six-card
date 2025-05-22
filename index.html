@@ -1,27 +1,25 @@
+
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>六边形青年战力图</title>
+  <title>六边形青年战力卡</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>六边形青年战力图</h1>
-    <p class="tip">提示：如无法打开页面，请点击右上角“...”并选择“在浏览器中打开”</p>
-    <input type="text" id="nameInput" placeholder="请输入昵称" />
-    <div id="sliders"></div>
-    <button onclick="generate()">生成战力图</button>
-    <div id="result" style="display:none;">
-      <h2 id="titleArea"></h2>
-      <canvas id="chart" width="300" height="300"></canvas>
+    <h1>六边形青年战力卡</h1>
+    <div class="slider-group" id="sliders"></div>
+    <div id="nicknameInput">
+      <label>昵称：<input type="text" id="nickname" placeholder="请输入昵称"></label>
+    </div>
+    <button onclick="generateCard()">生成战力卡</button>
+    <div id="result">
+      <h2 id="title"></h2>
       <p id="quote"></p>
-      <button onclick="saveCard()">保存战力卡为图片</button>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
