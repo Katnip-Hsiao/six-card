@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>六边形青年战力卡</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body {
+      font-family: '微软雅黑', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6fa;
+      color: #333;
+    }
+    .page {
+      display: none;
+      padding: 30px;
+    }
+    .active {
+      display: block;
+    }
+    .input-area {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .input-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    .range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type="range"] {
+      flex: 1;
+    }
+    .score-value {
+      width: 40px;
+      text-align: right;
+      font-weight: bold;
+      color: #007aff;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 12px 30px;
+      background: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+    }
+    #cardArea {
+      width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    #chartContainer {
+      width: 100%;
+      height: 400px;
+    }
+    #resultArea {
+      margin-top: 20px;
+    }
+    #titleText {
+      color: #007aff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    #quoteText {
+      font-size: 16px;
+      color: #555;
+      margin-top: 10px;
+    }
+    .logo {
+      width: 100px;
+      margin: 0 auto 20px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div id="page1" class="page active">
+  <h1 style="text-align:center; color:#007aff;">六边形青年战力卡生成器</h1>
+  <div class="input-area">
+    <div class="input-group"><label>昵称</label><input type="text" id="nameInput" placeholder="请输入你的名字" /></div>
+    <div class="input-group">
+      <label>有理想</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score1" oninput="updateValue(1)">
+        <span class="score-value" id="value1">50</span>
+      </div>
+    </div>
+<div class="input-group">
+      <label>敢担当</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score2" oninput="updateValue(2)">
+        <span class="score-value" id="value2">50</span>
+      </div>
+    </div>
+<div class="input-group">
+      <label>守纪律</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score3" oninput="updateValue(3)">
+        <span class="score-value" id="value3">50</span>
+      </div>
+    </div>
+<div class="input-group">
+      <label>肯奋斗</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score4" oninput="updateValue(4)">
+        <span class="score-value" id="value4">50</span>
+      </div>
+    </div>
+<div class="input-group">
+      <label>善协作</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score5" oninput="updateValue(5)">
+        <span class="score-value" id="value5">50</span>
+      </div>
+    </div>
+<div class="input-group">
+      <label>勇创新</label>
+      <div class="range-wrapper">
+        <input type="range" min="0" max="100" value="50" id="score6" oninput="updateValue(6)">
+        <span class="score-value" id="value6">50</span>
+      </div>
+    </div>
+    <button onclick="nextPage()">下一步，生成战力卡</button>
+  </div>
+</div>
+
+<div id="page2" class="page">
+  <div id="cardArea">
+    <img src="logo.png" class="logo" alt="logo" />
+    <div id="chartContainer"></div>
+    <div id="resultArea">
+      <h2 id="titleText"></h2>
+      <p id="quoteText"></p>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <button onclick="saveImage()">保存战力卡为图片</button>
+  </div>
+</div>
+
+<script>
+  function updateValue(n) {
+    const score = document.getElementById("score" + n).value;
+    document.getElementById("value" + n).textContent = score;
+  }
+
+  function nextPage() {
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
+    generateChart();
+  }
+
+  function generateChart() {
+    const scores = [1,2,3,4,5,6].map(i => parseInt(document.getElementById("score"+i).value));
+    const name = document.getElementById("nameInput").value || "未命名战士";
+    const chart = echarts.init(document.getElementById("chartContainer"));
+    chart.setOption({
+      title: { text: name + " 的六边形战力图", left: "center", top: 10, textStyle: { fontSize: 18 }},
+      tooltip: {},
+      radar: {
+        indicator: ["有理想", "敢担当", "守纪律", "肯奋斗", "善协作", "勇创新"].map(name => ({name,max:100})),
+        shape: 'polygon', radius: 120,
+        splitArea: { show: true, areaStyle: { color: ['#f9f9f9', '#f1f1f1'] }}
+      },
+      series: [{ type: 'radar', data: [{ value: scores, areaStyle: { color: 'rgba(0,122,255,0.4)' }, lineStyle: { color: '#007aff' }, itemStyle: { color: '#007aff' } }] }]
+    });
+
+    const maxIndex = scores.indexOf(Math.max(...scores));
+    const titles = ["信仰持盾者", "责任先锋官", "纪律导航仪", "燃力推进者", "中轴神盾", "开图破局者"];
+    const quotes = [
+      "你不是在喊口号，而是在每一个孤独的时刻也不放下信仰的火光。",
+      "你扛下的事、你担过的责，在沉默中闪光。",
+      "你走得稳，因为你心里有准绳。",
+      "你从不等待奇迹，你就是那个创造推进的人。",
+      "你是协作系统里最可靠的链接点，节奏感拉满！",
+      "你是第一个尝试、也是真正打破旧圈的人。"
+    ];
+    document.getElementById("titleText").textContent = "🎖 称号：" + titles[maxIndex];
+    document.getElementById("quoteText").textContent = "💬 " + quotes[maxIndex];
+  }
+
+  function saveImage() {
+    html2canvas(document.getElementById("cardArea"), {
+      useCORS: true, scale: 2
+    }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "六边形战力卡.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  }
+</script>
+</body>
+</html>
