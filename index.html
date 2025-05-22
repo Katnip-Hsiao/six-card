@@ -2,16 +2,14 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>六边形青年战力图</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h2>六边形青年战力图</h2>
-
   <label for="nickname">你的昵称：</label>
   <input type="text" id="nickname" placeholder="请输入你的名字" />
-
   <div class="slider-container">
     <label>有理想：<span id="score1Val">50</span></label>
     <input type="range" min="0" max="100" value="50" id="score1" />
@@ -26,9 +24,7 @@
     <label>勇创新：<span id="score6Val">50</span></label>
     <input type="range" min="0" max="100" value="50" id="score6" />
   </div>
-
   <button onclick="saveAndGo()">生成战力图</button>
-
   <script>
     const scores = ['score1','score2','score3','score4','score5','score6']
     scores.forEach(id => {
@@ -36,7 +32,6 @@
       const output = document.getElementById(id + 'Val')
       slider.oninput = () => output.textContent = slider.value
     })
-
     function saveAndGo() {
       localStorage.setItem('nickname', document.getElementById('nickname').value || '未命名战士')
       scores.forEach(id => {
