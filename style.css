@@ -1,64 +1,39 @@
-
 body {
-  font-family: "Helvetica Neue", sans-serif;
-  background: #f2f4f8;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
   text-align: center;
-  margin: 0;
-  padding: 40px;
+  background: #f8f9fa;
+  color: #333;
 }
-
-.input-page {
-  max-width: 400px;
-  margin: 100px auto;
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+h2 {
+  margin-bottom: 10px;
 }
-
-input {
-  padding: 12px;
-  font-size: 18px;
+label {
+  display: block;
+  margin-top: 10px;
+}
+input[type="range"] {
   width: 80%;
-  margin-bottom: 20px;
+  margin: 5px auto 15px;
 }
-
+input[type="text"] {
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 60%;
+}
 button {
   padding: 10px 20px;
-  font-size: 18px;
-  background: #0066cc;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
+  margin-top: 15px;
   cursor: pointer;
 }
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  display: inline-block;
+button:hover {
+  background-color: #0056b3;
 }
-
-.logo {
-  height: 60px;
-  margin-bottom: 20px;
-}
-
-.result-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.title-area {
-  font-size: 20px;
-  color: #0055aa;
-  margin-top: 20px;
-}
-
-.quote-area {
-  color: #666;
-  font-style: italic;
-  margin-top: 10px;
+canvas {
+  margin: 30px auto;
+  max-width: 90vw;
 }

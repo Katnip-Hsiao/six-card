@@ -1,22 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>六边形战力图 - 昵称输入</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>六边形青年战力图</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="input-page">
-    <h1>请输入昵称</h1>
-    <input id="username" type="text" placeholder="如：言夕宝宝">
-    <button onclick="goToResult()">生成战力图</button>
+  <h2>六边形青年战力图</h2>
+
+  <label for="nickname">你的昵称：</label>
+  <input type="text" id="nickname" placeholder="请输入你的名字" />
+
+  <div class="slider-container">
+    <label>有理想：<span id="score1Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score1" />
+    <label>敢担当：<span id="score2Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score2" />
+    <label>守纪律：<span id="score3Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score3" />
+    <label>肯奋斗：<span id="score4Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score4" />
+    <label>善协作：<span id="score5Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score5" />
+    <label>勇创新：<span id="score6Val">50</span></label>
+    <input type="range" min="0" max="100" value="50" id="score6" />
   </div>
+
+  <button onclick="saveAndGo()">生成战力图</button>
+
   <script>
-    function goToResult() {
-      const name = document.getElementById("username").value || "未命名战士";
-      localStorage.setItem("sixCardName", name);
-      window.location.href = "result.html";
+    const scores = ['score1','score2','score3','score4','score5','score6']
+    scores.forEach(id => {
+      const slider = document.getElementById(id)
+      const output = document.getElementById(id + 'Val')
+      slider.oninput = () => output.textContent = slider.value
+    })
+
+    function saveAndGo() {
+      localStorage.setItem('nickname', document.getElementById('nickname').value || '未命名战士')
+      scores.forEach(id => {
+        localStorage.setItem(id, document.getElementById(id).value)
+      })
+      window.location.href = "result.html"
     }
   </script>
 </body>
