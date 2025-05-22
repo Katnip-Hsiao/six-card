@@ -67,7 +67,7 @@
       for (let i = 1; i <= 6; i++) {
         localStorage.setItem('score' + i, document.getElementById('score' + i).value);
       }
-      window.location.href = "result.html";
+      window.location.href = "result.html?v=" + new Date().getTime();
     }
   
     function updateValue(i) {
