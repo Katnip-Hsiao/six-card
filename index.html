@@ -69,6 +69,14 @@
   <button onclick="saveAndGo()">生成战力图</button>
 
   <script>
+const scores = ['score1','score2','score3','score4','score5','score6']
+    scores.forEach(id => {
+      const slider = document.getElementById(id)
+      const valSpan = document.getElementById(id + 'Val')
+      valSpan.textContent = slider.value
+      slider.oninput = () => valSpan.textContent = slider.value
+    })
+
     function saveAndGo() {
       localStorage.setItem('nickname', document.getElementById('nickname').value || '未命名战士');
       for (let i = 1; i <= 6; i++) {
