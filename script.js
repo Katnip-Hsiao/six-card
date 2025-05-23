@@ -1,11 +1,14 @@
+
 window.onload = function () {
   const name = localStorage.getItem("nickname") || "未命名战士";
   document.getElementById("nicknameTitle").innerText = name + " 的六边形战力图";
+
   const scores = [1, 2, 3, 4, 5, 6].map(i =>
     parseInt(localStorage.getItem("score" + i)) || 0
   );
   const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
   const maxIndex = scores.indexOf(Math.max(...scores));
+
   const labels = ["有理想", "敢担当", "守纪律", "肯奋斗", "善协作", "勇创新"];
   new Chart(document.getElementById("radarChart"), {
     type: "radar",
@@ -25,7 +28,7 @@ window.onload = function () {
       responsive: true,
     }
   });
-  
+
   const titles1 = ["信仰持盾者", "勇毅先锋官", "秩序掌舵者", "燃力实践家", "中枢协同者", "睿思策划人"];
   const quotes1 = [
     "你不是在喊口号，而是在每一个孤独的时刻也不放下信仰的火光。",
@@ -44,12 +47,11 @@ window.onload = function () {
     "你用沉默思考，用细节表达，把每一次前行都藏在不声不响的努力里。",
     "你不随风起舞，也不等人喝彩，只在自己的节奏里稳稳前行。"
   ];
+
   const high = avg >= 70;
-  const idx = Math.floor(Math.random() * 6);
+  const idx = maxIndex;
   document.getElementById("titleArea").innerText = "🏅 称号：" + (high ? titles1[idx] : titles2[idx]);
   document.getElementById("quote").innerText = high ? quotes1[idx] : quotes2[idx];
-
-  document.getElementById("quote").innerText = quotes[maxIndex];
 };
 
 function saveImage() {
